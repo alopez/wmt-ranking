@@ -7,6 +7,7 @@ for X in `cat raw_data/wmt11/wmt11-maneval-indivsystems.RNK_results.csv | grep -
 for X in `cat raw_data/wmt11/wmt11-maneval-combosystems.RNK_results.csv | grep -v srclang | cut -f -2 -d , | sort | uniq`; do echo wmt11 combo $X; grep $X raw_data/wmt11/wmt11-maneval-combosystems.RNK_results.csv | bin/extract-pairwise-wmt11.py > data/pairwise/wmt11.$X.combo; done
 for X in `cat raw_data/wmt11/wmt11-maneval-tunablemetrics.RNK_results.csv | grep -v srclang | cut -f -2 -d , | sort | uniq`; do echo wmt11 tunable $X; grep $X raw_data/wmt11/wmt11-maneval-tunablemetrics.RNK_results.csv | bin/extract-pairwise-wmt11.py > data/pairwise/wmt11.$X.tunablemetrics; done
 for X in `cat raw_data/wmt10/data_RNK.csv | grep -v srclang | cut -f -2 -d , | sort | uniq`; do echo wmt10 $X; grep $X raw_data/wmt10/data_RNK.csv| bin/extract-pairwise-wmt11.py > data/pairwise/wmt10.$X; done
+for X in `cat raw_data/wmt12/wmt12.RNK_results.csv | grep -v srclang | cut -f -2 -d , | sort | uniq`; do echo wmt12 $X; grep $X raw_data/wmt12/wmt12.RNK_results.csv| bin/extract-pairwise-wmt11.py > data/pairwise/wmt12.$X; done
 
 # calculate ranking from >=/>=< votes with ref (EQ 1 -- WMT official)
 echo; echo Calculating WMT official rankings ...

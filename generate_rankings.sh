@@ -16,7 +16,7 @@ mkdir -p data/ranking_wmt_official
 for X in `ls data/pairwise`; do cat data/pairwise/$X | awk '{print $1}' | sort | uniq -c > data/denom_wmt_official/$X; done
 for X in `ls data/pairwise`; do echo $X; cat data/pairwise/$X | awk '($3!="<"){print $1}' | sort | uniq -c | paste - data/denom_wmt_official/$X | awk '{print $2"\t"$1/$3*100}' | sort -nrk 2 > data/ranking_wmt_official/$X; done
 
-# calculate ranking from >/>=< votes without ref (EQ 2 -- Bojar recommendation)
+# calculate ranking from >/>< votes without ref (EQ 2 -- Bojar recommendation)
 echo; echo Calculating Bojar metric rankings ...
 mkdir -p data/denom_bojar
 mkdir -p data/ranking_bojar

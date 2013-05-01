@@ -1,0 +1,8 @@
+cmu-bleu	0.619888
+cmu-bleu-single	0.608186
+cu-sempos-bleu	0.600832
+cmu-meteor	0.585291
+stanford-dcp	0.549889
+rwth-cder	0.54642
+nus-tesla-f	0.488496
+sheffield-rose	0.000999001

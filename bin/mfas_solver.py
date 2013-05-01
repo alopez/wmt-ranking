@@ -16,18 +16,12 @@ def indexes(b, n=0):
   """ Generate a list of indexes that are turned on in a bitmap b """
   return [] if b==0 else ([n] if b&1==1 else []) + indexes(b>>1, n+1)
 
-pairwise_score = defaultdict(int)
+tournament = defaultdict(lambda: defaultdict(float))
 vertices = set()
 for line in sys.stdin:
-  (count, sys1, sys2, order) = line.strip().split()
-  pairwise_score[(sys1,sys2)] += int(count) if order == "<" else -int(count)
-  vertices.add(sys1)
-  vertices.add(sys2)
-
-tournament = defaultdict(dict)
-for (u, v), weight in pairwise_score.iteritems():
-  if weight > 0:
-    tournament[u][v] = weight 
+  (u, v, weight) = line.strip().split()
+  tournament[u][v] = float(weight)
+  vertices.update([u,v])
 
 vertices = list(vertices)
 hypothesis = namedtuple("hypothesis", "cost, state, predecessor, vertex")
@@ -45,8 +39,8 @@ while len(agenda) > 0:
     new_state = h.state | bitmap([u])
     added_cost = 0
     for v in indexes(goal^new_state):
-      if vertices[v] in tournament[vertices[u]]:
-        added_cost += tournament[vertices[u]][vertices[v]]
+      if vertices[u] in tournament[vertices[v]]:
+        added_cost += tournament[vertices[v]][vertices[u]]
     new_h = hypothesis(h.cost + added_cost, new_state, h, vertices[u])
     if new_state not in agenda or agenda[new_state].cost > new_h.cost:
       agenda[new_state] = new_h
